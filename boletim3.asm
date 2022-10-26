@@ -1,7 +1,4 @@
-# 3 - crie um programa que receba duas notas e o percentual de frequÃªncia.
-# Calcule e depois exiba a mÃ©dia das notas e informe se o aluno foi aprovado.
-# ( aprovado mÃ©dia >=7 e frequÃªncia >= 75.)
-
+#Modificar o exercício 3 (cálculo de média) para: calcular a média de N alunos 
 
 .data 
 
@@ -23,24 +20,25 @@
 .text
 	main:
 		
-		addi $t1, $t1, 0
-		
 		li $v0, 4 
-		la $a0, msg9 
+		la $a0, msg9 # "Digite a quantidade de alunos: "
 		syscall 
 		
-		li $v0, 5
-		move $t2, $v1
+		li $v0, 5 # lê quantidade de alunos
 		syscall
 		
+		sub $v0,$v0, 1
+		move $t0, $v0
+		move $t1, $zero
+		
 		while:
-			bgt $t1, $t2, exit
+			bgt $t1, $t0, exit
 			
 			li $v0, 4 
 			la $a0, msg1 #"Digite a primeira nota: "
 			syscall 
 
-			li $v0, 6 # lÃª nota 1
+			li $v0, 6 # lê nota 1
 			syscall
 	
 			mov.s $f1, $f0 #nota 1 para o $f1
@@ -49,7 +47,7 @@
 			la $a0, msg2 #"Digite a segunda nota: "
 			syscall 
 
-			li $v0, 6 # lÃª nota 2
+			li $v0, 6 # lê nota 2
 			syscall
 	
 			mov.s $f2, $f0 #nota 2 para o $f2
@@ -78,7 +76,7 @@
 			la $a0, msg4 #"Digite a frequencia: "
 			syscall
 	
-			li $v0, 6 # lÃª frequencia
+			li $v0, 6 # lê frequencia
 			syscall
 	
 			mov.s $f6, $f0 #frequencia para $f6
@@ -122,11 +120,10 @@
 			la $a0, msg8 #"Media dos alunos: "
 			syscall
 			
-			mtc1 $v1, $f0
+			mtc1 $t1, $f0
 			cvt.s.w $f0, $f0
 			
-			mov.s $f1, $f0
-			div.s $f9, $f9, $f1 #calcula media de todas as notas
+			div.s $f9, $f9, $f0 #calcula media de todas as notas
 			
 			mov.s $f12, $f9
 	

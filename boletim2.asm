@@ -1,6 +1,4 @@
-# 3 - crie um programa que receba duas notas e o percentual de frequÃªncia.
-# Calcule e depois exiba a mÃ©dia das notas e informe se o aluno foi aprovado.
-# ( aprovado mÃ©dia >=7 e frequÃªncia >= 75.)
+# 3 - Modificar o exercício 3 (cálculo de média) para: calcular a média de 4 alunos.
 
 
 .data 
