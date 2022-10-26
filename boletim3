@@ -15,17 +15,26 @@
 	msg6: .asciiz "Aprovado\n"
 	msg7: .asciiz "Reprovado\n"
 	msg8: .asciiz "Media dos alunos: "
+	msg9: .asciiz "Digite a quantidade de alunos: "
 	const: .float 2.0
-	const2: .float 4.0
 	minFreq: .float 75.0
 	minMed: .float 7.0
 	
 .text
 	main:
-		addi $t0, $t0, 0
+		
+		addi $t1, $t1, 0
+		
+		li $v0, 4 
+		la $a0, msg9 
+		syscall 
+		
+		li $v0, 5
+		move $t2, $v1
+		syscall
 		
 		while:
-			bgt $t0, 3, exit
+			bgt $t1, $t2, exit
 			
 			li $v0, 4 
 			la $a0, msg1 #"Digite a primeira nota: "
@@ -103,7 +112,7 @@
 			la $a0, newline
 			syscall # "\n"
 			
-			addi $t0, $t0, 1
+			addi $t1, $t1, 1
 			
 			j while
 			
@@ -113,7 +122,10 @@
 			la $a0, msg8 #"Media dos alunos: "
 			syscall
 			
-			lwc1 $f1, const2
+			mtc1 $v1, $f0
+			cvt.s.w $f0, $f0
+			
+			mov.s $f1, $f0
 			div.s $f9, $f9, $f1 #calcula media de todas as notas
 			
 			mov.s $f12, $f9
@@ -133,6 +145,6 @@
 			la $a0, newline
 			syscall # "\n"
 			
-			addi $t0, $t0, 1
+			addi $t1, $t1, 1
 			
 			j while
